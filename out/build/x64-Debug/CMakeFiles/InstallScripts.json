@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Andrew/source/repos/ven7ix/mod-lab06-markov/out/build/x64-Debug/cmake_install.cmake",
+		"C:/Users/Andrew/source/repos/ven7ix/mod-lab06-markov/out/build/x64-Debug/src/cmake_install.cmake",
+		"C:/Users/Andrew/source/repos/ven7ix/mod-lab06-markov/out/build/x64-Debug/test/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
