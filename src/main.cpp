@@ -1,8 +1,10 @@
 // Copyright 2026 Andrew
 
-#include "textgen.h"
 #include <ctime>
 #include <iostream>
+#include <vector>
+#include <string>
+#include "textgen.h"
 
 int main() {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
@@ -18,20 +20,18 @@ int main() {
             if (i != 0) {
                 originalText += " ";
             }
-
             originalText += words[i];
         }
 
         save_file("gen.txt", originalText);
-
         return 0;
     }
 
     statetab stab;
     prefix firstPrefix;
-
     create_table(words, stab, firstPrefix);
     std::string generated = generate_text(stab, firstPrefix, MAXGEN);
+
     if (save_file("gen.txt", generated)) {
         std::cout << "Text is saved in gen.txt" << std::endl;
     }

@@ -1,4 +1,4 @@
-// Copyright 2026 Andrew
+// Copyright 2026 Starostin
 
 #include "textgen.h"
 #include <fstream>
@@ -6,17 +6,17 @@
 #include <vector>
 #include <string>
 
-static std::vector<std::string> read_file(const std::string& filename) {
+std::vector<std::string> read_file(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         return {};
     }
 
     std::vector<std::string> words;
-    for (std::string word; file >> word; words.push_back(word))
-    {
+    std::string word;
+    while (file >> word) {
+        words.push_back(word);
     }
-
     return words;
 }
 
@@ -30,7 +30,8 @@ bool save_file(const std::string& filename, const std::string& text) {
     return true;
 }
 
-void create_table(const std::vector<std::string>& words, statetab& statetab, prefix& first_prefix) {
+void create_table(const std::vector<std::string>& words,
+    statetab& statetab, prefix& first_prefix) {
     if (words.size() < static_cast<size_t>(NPREF)) {
         return;
     }
@@ -44,19 +45,19 @@ void create_table(const std::vector<std::string>& words, statetab& statetab, pre
     for (size_t i = NPREF; i < words.size(); ++i) {
         const std::string& suffix = words[i];
         statetab[current_prefix].push_back(suffix);
-
         current_prefix.pop_front();
         current_prefix.push_back(suffix);
     }
 }
 
-static std::string generate_text(const statetab& statetab, const prefix& first_prefix, size_t max_len) {
+std::string generate_text(const statetab& statetab,
+    const prefix& first_prefix,
+    size_t max_len) {
     if (max_len <= 0) {
         return "";
     }
 
     std::vector<std::string> words;
-
     for (const std::string& w : first_prefix) {
         words.push_back(w);
     }
@@ -68,15 +69,14 @@ static std::string generate_text(const statetab& statetab, const prefix& first_p
     prefix current = first_prefix;
 
     while (words.size() < static_cast<size_t>(max_len)) {
-        statetab::const_iterator iterator = statetab.find(current);
-        if (iterator == statetab.end() || iterator->second.empty()) {
+        auto it = statetab.find(current);
+        if (it == statetab.end() || it->second.empty()) {
             break;
         }
 
-        const std::vector<std::string>& suffixes = iterator->second;
+        const std::vector<std::string>& suffixes = it->second;
         int idx = std::rand() % suffixes.size();
         const std::string& next = suffixes[idx];
-
         words.push_back(next);
 
         current.pop_front();
@@ -84,14 +84,11 @@ static std::string generate_text(const statetab& statetab, const prefix& first_p
     }
 
     std::string text;
-
     for (size_t i = 0; i < words.size(); ++i) {
         if (i != 0) {
             text += " ";
         }
-
         text += words[i];
     }
-
     return text;
 }
