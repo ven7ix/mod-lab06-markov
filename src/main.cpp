@@ -34,8 +34,7 @@ int main() {
 
     if (save_file("gen.txt", generated)) {
         std::cout << "Text is saved in gen.txt" << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "Error writing to gen.txt" << std::endl;
     }
 

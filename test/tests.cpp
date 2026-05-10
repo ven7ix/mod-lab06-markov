@@ -1,13 +1,12 @@
 // Copyright 2021 GHA Test Team
-#include "textgen.h"
-
-#include <gtest/gtest.h>
 
 #include <ctime>
-#include <vector>
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <sstream>
+#include <gtest/gtest.h>
+#include "textgen.h"
 
 static bool contains(const std::vector<std::string>& vec,
     const std::string& word) {
