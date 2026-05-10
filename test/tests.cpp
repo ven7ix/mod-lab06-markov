@@ -5,7 +5,6 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include <gtest/gtest.h>
 #include "textgen.h"
 
 static bool contains(const std::vector<std::string>& vec,
